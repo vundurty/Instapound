@@ -13,7 +13,7 @@
         <a href="/" class="font-[400] text-sm my-10">Forgot password?</a>
         <div class="flex flex-row items-center text-sm gap-1">
             <p>Don't have an account?</p>
-            <a href="/" class="text-sky-500 font-[500]">Sign up</a>
+            <a href="/accounts/signup" class="text-sky-500 font-[500]">Sign up</a>
         </div>
     </div>    
 </div>
