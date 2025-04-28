@@ -63,30 +63,30 @@ The development is divided into phases, each with a focused goal and clear miles
 ## 🚀 Getting Started
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/vundurty/instapound.git
-Navigate to the project directory:
-bash
+    ```bash
+    git clone https://github.com/vundurty/instapound.git
 
-Copy
-cd instapound
-Install dependencies:
-bash
+2. Navigate to the project directory:
+    ```bash
+    cd instapound
 
-Copy
-npm install
-Configure your .env file with your Supabase URL and anon key.
-Run the development server:
-bash
+3. Install dependencies:
+    ```bash
+    npm install
 
-Copy
-npm run dev
+4. Configure your .env file with your Supabase URL and anon key.
+
+5. Run the development server:
+    ```bash
+    npm run dev
+
 📜 License
 Licensed under the . You are free to use, modify, and distribute this project for personal and commercial purposes with proper attribution.
 
 ⚠️ Legal Disclaimer
-This project is NOT affiliated with Instagram or Meta Platforms, Inc.
-Built solely for educational purposes.
-No use of Instagram's private APIs, brand assets, logos, or internal designs.
+- This project is NOT affiliated with Instagram or Meta Platforms, Inc.
+- Built solely for educational purposes.
+- No use of Instagram's private APIs, brand assets, logos, or internal designs.
+
 🌟 Let’s Build It Together!
 Contributions and feedback are welcome! Feel free to open issues or submit pull requests.
