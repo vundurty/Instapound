@@ -4,22 +4,30 @@
     import { goto } from "$app/navigation";
 
     let email = '';
+    let loading = false;
+    let errorMsg = '';
 
     $: isFormValid = email.trim().length > 0;
 
     onMount(async () => {
         const { data, error } = await supabase.auth.getSession();
         if(error) {
-            console.error(error.message);
+            errorMsg = error.message;
         } else if (data.session) {
             goto('/');
         }
     })
-
+    
     async function resetPassword(){
-        await supabase.auth.resetPasswordForEmail(email, {
+        loading = true;
+        const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
             redirectTo: 'http://localhost:5173/accounts/password/reset/confirm',
-        })
+        });
+        if(error) {
+            errorMsg = error.message;
+        }
+        loading = false;
+        email = '';
     }; 
 
 </script>
@@ -42,8 +50,17 @@
             </svg>              
             <p class="text-gray-900 font-semibold mb-2 w-68 text-center">Trouble logging in?</p>
             <p class="text-stone-500 text-sm mb-2 w-80 text-center">Enter your email, phone, or username and we'll send you a link to get back into your account.</p>
+            {#if errorMsg}
+                <p class="text-sm py-2 text-rose-500 w-80 text-center">{errorMsg}</p>
+            {/if}
             <input bind:value={email} type="email" placeholder="Email" class=" border border-stone-300 p-2 py-3 w-74 my-2 placeholder:text-left font-[350] placeholder:font-[400 placeholder:text-stone-500 mb-2 bg-gray-50 text-xs rounded-lg outline-0"/>      
-            <button on:click={resetPassword} disabled={!isFormValid} class="disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm p-2 w-74 mt-2 rounded-lg bg-sky-500 hover:bg-blue-500 hover:cursor-pointer font-[600]">Send login Link</button>
+            <button on:click={resetPassword} disabled={!isFormValid} class="disabled:cursor-not-allowed disabled:opacity-50 text-white text-sm p-2 w-74 mt-2 rounded-lg bg-sky-500 hover:bg-blue-500 hover:cursor-pointer font-[600]">
+                {#if loading}
+                    <svg class="animate-spin w-full" fill="#FFFFFF" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M0 10.996c.484-5.852 5.145-10.512 10.996-10.996v2.009c-4.737.473-8.515 4.25-8.987 8.987h-2.009zm13.004-8.987c4.737.473 8.515 4.25 8.987 8.987h2.009c-.484-5.852-5.145-10.512-10.996-10.996v2.009zm-2.008 19.982c-4.737-.473-8.515-4.25-8.987-8.987h-2.009c.484 5.852 5.145 10.512 10.996 10.996v-2.009zm10.995-8.987c-.473 4.737-4.25 8.514-8.987 8.987v2.009c5.851-.484 10.512-5.144 10.996-10.996h-2.009z"/></svg>
+                {:else}
+                    Send login Link
+                {/if}
+            </button>
             <div class="flex flex-col items-center my-10">
                 <div class="flex items-center ">
                     <hr class="w-28 border-t border-gray-300" />
